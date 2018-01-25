@@ -12,7 +12,12 @@ class Currencies():
         doc = xmltodict.parse(r.text)
         for v in doc['ISO_4217']['CcyTbl']['CcyNtry']:
             try:
-                self.__currency_list[v['Ccy']] = dict(v)
+                print(v)
+                self.__currency_list[v['Ccy']] = {'Name' : v['CcyNm'],
+                                                  'Units' : v['CcyMnrUnts'],
+                                                  'id' : v['CcyNbr'],
+                                                  'CountryName' : v['CtryNm'],
+                                                  'Country': v['Ccy']}
             except:
                 pass    #Antarctica doesn't have all fields
 

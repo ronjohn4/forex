@@ -1,24 +1,28 @@
 from datasources.util import Currencies
 import pytest
 
+curr_list = Currencies().list()
+
 @pytest.fixture()
 def currency_list():
-    return Currencies().list()
+    return curr_list
 
 def test_USD_in_list(currency_list):
     assert "USD" in currency_list
 
-def test_USD_name():
-    assert 'US Dollar' == currency_list['name']
+def test_USD_name(currency_list):
+    assert 'US Dollar' == currency_list['USD'].name
 
-def test_USD_id():
-    assert '840' == currency_list['id']
+def test_USD_id(currency_list):
+    assert '840' == currency_list['USD'].id
 
-def test_USD_country():
-    assert 'USD' == currency_list['country']
+def test_USD_currency(currency_list):
+    assert 'USD' == currency_list['USD'].currency
 
-def test_USD_units():
-    assert '2' == currency_list['units']
+def test_USD_countryname(currency_list):
+    assert 'UNITED STATES OF AMERICA (THE)' in currency_list['USD'].countryname
 
-def test_USD_countryname():
-    assert '' == currency_list['countryname']
+def test_listcount(currency_list):
+    assert 178 == len(currency_list)
+
+

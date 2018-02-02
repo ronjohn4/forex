@@ -1,7 +1,13 @@
 import requests
 import xmltodict
+import datetime
 
-url = "https://www.currency-iso.org/dam/downloads/lists/list_one.xml"
+
+def unixToDate(unixtimestamp):
+    return datetime.datetime.fromtimestamp(int(unixtimestamp)).strftime('%Y-%m-%d')
+
+def unixToTime(unixtimestamp):
+    return datetime.datetime.fromtimestamp(int(unixtimestamp)).strftime('%H:%M:%S')
 
 
 class objectview(object):
@@ -19,7 +25,7 @@ class Currencies():
 
     def __init__(self):
         if not self.__currency_list:
-            r = requests.get(url)
+            r = requests.get('https://www.currency-iso.org/dam/downloads/lists/list_one.xml')
             doc = xmltodict.parse(r.text)
             for v in doc['ISO_4217']['CcyTbl']['CcyNtry']:
                 try:
